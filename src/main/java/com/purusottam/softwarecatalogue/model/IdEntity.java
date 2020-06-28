@@ -19,7 +19,7 @@ public abstract class IdEntity implements Serializable {
     //@Min(value = -20)
     @Id
     @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "CREATED_BY", updatable = false)
