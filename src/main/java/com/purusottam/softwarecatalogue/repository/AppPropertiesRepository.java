@@ -16,8 +16,8 @@ public interface AppPropertiesRepository extends BaseRepository<AppProperties> {
 
 //    @Query("select a from AppProperties a where a.groupType=:groupType and a.name=:name and a.parentId=:patentId")
 //    boolean findByName(@Param("groupType") AppProperties.GroupType groupType, @Param("name") String name, @Param("parentId") Long parentId);
-//
-//    @Query("select a from AppProperties a where a.groupType=:groupType and a.name=:name")
-//    AppProperties findByLicenseMetricType(@Param("groupType") AppProperties.GroupType groupType, @Param("name") String name);
+
+    @Query("select a from AppProperties a where a.groupType=:groupType and a.name=:name")
+    AppProperties findByLicenseMetricType(@Param("groupType") AppProperties.GroupType groupType, @Param("name") String name);
 
 }
