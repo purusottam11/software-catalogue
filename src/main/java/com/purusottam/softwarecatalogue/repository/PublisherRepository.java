@@ -7,13 +7,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Component
 public interface PublisherRepository extends BaseRepository<Publisher> {
 
-    @Query("select p from Publisher p where p.name=:name")
-    Publisher findByName(@Param("name") String name);
+    //@Query("select p from Publisher p where p.name=:name")
+    Optional<Publisher> findByName(String name);
 
     @Query("select p from Publisher p where p.name like %:searchString%")
     List<Publisher> searchByName(@Param("searchString") String searchString);

@@ -1,11 +1,20 @@
 package com.purusottam.softwarecatalogue.bean;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+@Data
 public abstract class DataBean implements Serializable {
 
     @Id
