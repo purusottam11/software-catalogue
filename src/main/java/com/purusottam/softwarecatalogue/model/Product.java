@@ -1,9 +1,6 @@
 package com.purusottam.softwarecatalogue.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +12,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class Product extends AuditableIdEntity {
 
     @Column(name = "NAME")

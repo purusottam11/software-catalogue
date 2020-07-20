@@ -16,7 +16,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class ProductBean extends DataBean {
+public class ProductBean {
 
     private String name;
 

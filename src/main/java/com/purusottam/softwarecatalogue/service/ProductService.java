@@ -2,6 +2,7 @@ package com.purusottam.softwarecatalogue.service;
 
 
 import com.purusottam.softwarecatalogue.bean.ProductBean;
+import com.purusottam.softwarecatalogue.model.Publisher;
 
 import java.util.List;
 
@@ -9,10 +10,12 @@ public interface ProductService {
 
     List<ProductBean> getAllProduct();
 
-    ProductBean addProduct(ProductBean productBaen);
+    ProductBean addProduct(ProductBean productBean);
 
-    ProductBean updateProduct(ProductBean productBaen);
+    ProductBean updateProduct(ProductBean productBean, Long productId);
 
     ProductBean getProduct(Long productId);
+
+    List<Publisher> getProductsByPublisherId(Long publisherId);
 
 }
