@@ -10,7 +10,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class PublisherBean extends DataBean {
+public class PublisherBean {
 
     public enum PublisherType {
         SOFTWARE, HARDWARE, OTHER;

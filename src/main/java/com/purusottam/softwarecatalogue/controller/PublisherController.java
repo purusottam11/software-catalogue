@@ -19,9 +19,9 @@ public class PublisherController {
         return publisherService.addPublisher(publisherBean);
     }
 
-    @PutMapping("/updatePublisher")
-    public PublisherBean updatePublisher(@RequestBody PublisherBean publisherBean) {
-        return publisherService.updatePublisher(publisherBean);
+    @PutMapping("/updatePublisher/{publisherId}")
+    public PublisherBean updatePublisher(@RequestBody PublisherBean publisherBean, @PathVariable Long publisherId) {
+        return publisherService.updatePublisher(publisherBean, publisherId);
     }
 
     @GetMapping("/getPublishers")
@@ -33,4 +33,5 @@ public class PublisherController {
     public PublisherBean getPublisher(@PathVariable Long publisherId) {
         return publisherService.getPublisher(publisherId);
     }
+
 }
