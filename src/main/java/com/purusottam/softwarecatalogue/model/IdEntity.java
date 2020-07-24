@@ -16,7 +16,6 @@ import java.util.Date;
 @ToString
 public abstract class IdEntity implements Serializable {
 
-    //@Min(value = -20)
     @Id
     @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)

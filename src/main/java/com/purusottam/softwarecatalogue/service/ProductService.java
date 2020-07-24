@@ -2,6 +2,7 @@ package com.purusottam.softwarecatalogue.service;
 
 
 import com.purusottam.softwarecatalogue.bean.ProductBean;
+import com.purusottam.softwarecatalogue.bean.PublisherBean;
 import com.purusottam.softwarecatalogue.model.Publisher;
 
 import java.util.List;
@@ -16,6 +17,6 @@ public interface ProductService {
 
     ProductBean getProduct(Long productId);
 
-    List<Publisher> getProductsByPublisherId(Long publisherId);
+    List<PublisherBean> getProductsByPublisherId(Long publisherId);
 
 }

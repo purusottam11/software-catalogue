@@ -9,7 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class CategoryBean extends DataBean {
+public class CategoryBean {
 
     private String name;
 

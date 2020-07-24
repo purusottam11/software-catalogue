@@ -1,9 +1,6 @@
 package com.purusottam.softwarecatalogue.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Builder
 public class Category extends AuditableIdEntity {
 
     @Column(name = "NAME")
@@ -25,8 +23,5 @@ public class Category extends AuditableIdEntity {
     @Column(name = "PARENT_ID")
     private Long parentId;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
-    @JoinColumn(name = "PARENT_ID", insertable = false)
-    private List<Category> subCategories;
 
 }
