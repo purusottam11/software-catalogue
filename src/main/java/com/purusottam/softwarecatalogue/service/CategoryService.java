@@ -19,9 +19,7 @@ public interface CategoryService {
 
     CategoryBean getCategory(Long categoryId);
 
-    CategoryBean deleteCategory(Long categoryId);
-
-    CategoryBean deleteSubCategory(Long subCategoryId);
+    String deleteCategory(Long categoryId);
 
     List<CategoryBean> getAllSuCategoriesByParentId(Long parentId);
 

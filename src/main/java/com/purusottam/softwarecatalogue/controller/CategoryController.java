@@ -60,9 +60,33 @@ public class CategoryController {
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
-
-
     }
 
+    @GetMapping("/getCategory/{categoryId}")
+    public CategoryBean getCategory(@PathVariable Long categoryId) {
+        try {
+            return categoryService.getCategory(categoryId);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @GetMapping("/getCategories/{parentId}")
+    public List<CategoryBean> getCategoriesByParentId(@PathVariable Long parentId) {
+        try {
+            return categoryService.getAllSuCategoriesByParentId(parentId);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/deleteCategory/{categoryId}")
+    public String deleteCategory(@PathVariable Long categoryId) {
+        try {
+            return categoryService.deleteCategory(categoryId);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
 
 }
