@@ -2,6 +2,7 @@ package com.purusottam.softwarecatalogue.controller;
 
 import com.purusottam.softwarecatalogue.bean.CategoryBean;
 import com.purusottam.softwarecatalogue.exception.BusinessException;
+import com.purusottam.softwarecatalogue.model.Category;
 import com.purusottam.softwarecatalogue.service.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,35 @@ public class CategoryController {
         } catch (Exception e) {
             throw new BusinessException(e.getMessage());
         }
+    }
+
+    @PostMapping("/addSubCategory")
+    public CategoryBean addSubCategory(@RequestBody CategoryBean subCategoryBean) {
+        try {
+            return categoryService.addSubCategory(subCategoryBean);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @PutMapping("/updateCategory/{categoryId}")
+    public CategoryBean updateCategory(@RequestBody CategoryBean categoryBean, @PathVariable Long categoryId) {
+        try {
+            return categoryService.updateCategory(categoryBean, categoryId);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+    }
+
+    @PutMapping("/updateSubCategory/{subCategoryId}")
+    public CategoryBean updateSubCategory(@RequestBody CategoryBean subCategoryBean, @PathVariable Long subCategoryId) {
+        try {
+            return categoryService.updateSubCategory(subCategoryBean, subCategoryId);
+        } catch (Exception e) {
+            throw new BusinessException(e.getMessage());
+        }
+
+
     }
 
 

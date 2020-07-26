@@ -10,9 +10,11 @@ import com.purusottam.softwarecatalogue.repository.CategoryRepository;
 import com.purusottam.softwarecatalogue.service.CategoryService;
 import com.purusottam.softwarecatalogue.utils.XoriskUtils;
 import lombok.AllArgsConstructor;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -24,8 +26,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryBean> getAllCategories() {
-        List<CategoryBean> list = XoriskUtils.copySafe((List<?>) categoryEsRepository.findAll(), CategoryBean.class);
-        return list;
+        List<Category> list = categoryRepository.findAll();
+        List<CategoryBean> beans = XoriskUtils.copySafe(list, CategoryBean.class);
+        return beans;
     }
 
     @Override
@@ -45,16 +48,56 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryBean;
     }
 
-    @Override
     @Transactional
-    public CategoryBean addSubCategory(CategoryBean categoryBean) {
+    @Override
+    public CategoryBean addSubCategory(CategoryBean subCategoryBean) {
+        Category category = categoryRepository.findById(subCategoryBean.getParentId()).orElseThrow(
+                () -> new BusinessException(ErrorCode.CATEGORY_NOR_FOUND.getMessage()));
+        categoryRepository.findByName(subCategoryBean.getName()).ifPresent(
+                i -> {
+                    throw new BusinessException(ErrorCode.SUB_CATEGORY_IS_EXIST.getMessage());
+                });
 
-        return null;
+        Category subCategory = new Category();
+        XoriskUtils.copySafe(subCategoryBean, subCategory);
+        subCategory = categoryRepository.save(subCategory);
+        CategoryEs subCategoryEs = new CategoryEs();
+        XoriskUtils.copySafe(subCategory, subCategoryEs);
+        subCategoryEs = categoryEsRepository.save(subCategoryEs);
+        XoriskUtils.copySafe(subCategoryEs, subCategoryBean);
+        return subCategoryBean;
     }
 
+    @Transactional
     @Override
     public CategoryBean updateCategory(CategoryBean categoryBean, Long categoryId) {
-        return null;
+        Category category = categoryRepository.findById(categoryId).orElseThrow(
+                () -> new BusinessException(ErrorCode.CATEGORY_NOR_FOUND.getMessage()));
+
+        XoriskUtils.copySafe(categoryBean, category);
+        category = categoryRepository.save(category);
+        CategoryEs categoryEs = new CategoryEs();
+        XoriskUtils.copySafe(category, categoryEs);
+        categoryEs = categoryEsRepository.save(categoryEs);
+        XoriskUtils.copySafe(categoryEs, categoryBean);
+        return categoryBean;
+    }
+
+    @Transactional
+    @Override
+    public CategoryBean updateSubCategory(CategoryBean subCategoryBean, Long subCategoryId) {
+        Category subCategory = categoryRepository.findById(subCategoryId).orElseThrow(
+                () -> new BusinessException(ErrorCode.SUB_CATEGORY_NOR_FOUND.getMessage()));
+        Category category1 = categoryRepository.findById(subCategoryBean.getParentId()).orElseThrow(
+                () -> new BusinessException(ErrorCode.CATEGORY_NOR_FOUND.getMessage()));
+
+        XoriskUtils.copySafe(subCategoryBean, subCategory);
+        subCategory = categoryRepository.save(subCategory);
+        CategoryEs subCategoryEs = new CategoryEs();
+        XoriskUtils.copySafe(subCategory, subCategoryEs);
+        subCategoryEs = categoryEsRepository.save(subCategoryEs);
+        XoriskUtils.copySafe(subCategoryEs, subCategoryBean);
+        return subCategoryBean;
     }
 
     @Override
@@ -63,7 +106,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryBean delaCategory(Long categoryId) {
+    public CategoryBean deleteCategory(Long categoryId) {
+        return null;
+    }
+
+    @Override
+    public CategoryBean deleteSubCategory(Long subCategoryId) {
         return null;
     }
 
