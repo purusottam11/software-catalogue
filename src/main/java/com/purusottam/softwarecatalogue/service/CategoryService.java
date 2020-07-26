@@ -11,13 +11,17 @@ public interface CategoryService {
 
     CategoryBean addCategory(CategoryBean categoryBean);
 
-    CategoryBean addSubCategory(CategoryBean categoryBean);
+    CategoryBean addSubCategory(CategoryBean subCategoryBean);
 
     CategoryBean updateCategory(CategoryBean categoryBean, Long categoryId);
 
+    CategoryBean updateSubCategory(CategoryBean subCategoryBean, Long subCategoryId);
+
     CategoryBean getCategory(Long categoryId);
 
-    CategoryBean delaCategory(Long categoryId);
+    CategoryBean deleteCategory(Long categoryId);
+
+    CategoryBean deleteSubCategory(Long subCategoryId);
 
     List<CategoryBean> getAllSuCategoriesByParentId(Long parentId);
 
