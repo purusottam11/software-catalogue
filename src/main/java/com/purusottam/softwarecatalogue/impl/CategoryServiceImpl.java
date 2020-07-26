@@ -10,11 +10,9 @@ import com.purusottam.softwarecatalogue.repository.CategoryRepository;
 import com.purusottam.softwarecatalogue.service.CategoryService;
 import com.purusottam.softwarecatalogue.utils.XoriskUtils;
 import lombok.AllArgsConstructor;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Calendar;
 import java.util.List;
 
 @Service
@@ -52,7 +50,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryBean addSubCategory(CategoryBean subCategoryBean) {
         Category category = categoryRepository.findById(subCategoryBean.getParentId()).orElseThrow(
-                () -> new BusinessException(ErrorCode.CATEGORY_NOR_FOUND.getMessage()));
+                () -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND.getMessage()));
         categoryRepository.findByName(subCategoryBean.getName()).ifPresent(
                 i -> {
                     throw new BusinessException(ErrorCode.SUB_CATEGORY_IS_EXIST.getMessage());
@@ -72,7 +70,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryBean updateCategory(CategoryBean categoryBean, Long categoryId) {
         Category category = categoryRepository.findById(categoryId).orElseThrow(
-                () -> new BusinessException(ErrorCode.CATEGORY_NOR_FOUND.getMessage()));
+                () -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND.getMessage()));
 
         XoriskUtils.copySafe(categoryBean, category);
         category = categoryRepository.save(category);
@@ -89,7 +87,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category subCategory = categoryRepository.findById(subCategoryId).orElseThrow(
                 () -> new BusinessException(ErrorCode.SUB_CATEGORY_NOR_FOUND.getMessage()));
         Category category1 = categoryRepository.findById(subCategoryBean.getParentId()).orElseThrow(
-                () -> new BusinessException(ErrorCode.CATEGORY_NOR_FOUND.getMessage()));
+                () -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND.getMessage()));
 
         XoriskUtils.copySafe(subCategoryBean, subCategory);
         subCategory = categoryRepository.save(subCategory);
@@ -102,21 +100,35 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryBean getCategory(Long categoryId) {
-        return null;
+        Category category = categoryRepository.findById(categoryId).orElseThrow(
+                () -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND.getMessage()));
+        CategoryBean categoryBean = new CategoryBean();
+        XoriskUtils.copySafe(category, categoryBean);
+        return categoryBean;
     }
 
     @Override
-    public CategoryBean deleteCategory(Long categoryId) {
-        return null;
-    }
+    public String deleteCategory(Long categoryId) {
+        Category category = categoryRepository.findById(categoryId).orElseThrow(
+                () -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND.getMessage()));
 
-    @Override
-    public CategoryBean deleteSubCategory(Long subCategoryId) {
-        return null;
+        categoryRepository.getCategoriesByParentId(categoryId).ifPresent(
+                i -> {
+                    throw new BusinessException("You can not delete the category.....");
+                }
+        );
+
+        categoryRepository.deleteById(categoryId);
+        categoryEsRepository.deleteById(categoryId);
+        return "success";
     }
 
     @Override
     public List<CategoryBean> getAllSuCategoriesByParentId(Long parentId) {
-        return null;
+        List<Category> categories = categoryRepository.getCategoriesByParentId(parentId).orElseThrow(
+                () -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND.getMessage()));
+
+        List<CategoryBean> list = XoriskUtils.copySafe(categories, CategoryBean.class);
+        return list;
     }
 }
