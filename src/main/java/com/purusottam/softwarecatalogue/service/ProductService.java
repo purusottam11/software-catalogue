@@ -17,6 +17,10 @@ public interface ProductService {
 
     ProductBean getProduct(Long productId);
 
-    List<PublisherBean> getProductsByPublisherId(Long publisherId);
+    String deleteProduct(Long productId);
+
+    List<ProductBean> getProductsByPublisherId(Long publisherId);
+
+    List<ProductBean> getProductsByCategoryId(Long categoryId);
 
 }

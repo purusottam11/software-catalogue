@@ -85,7 +85,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryBean updateSubCategory(CategoryBean subCategoryBean, Long subCategoryId) {
         Category subCategory = categoryRepository.findById(subCategoryId).orElseThrow(
-                () -> new BusinessException(ErrorCode.SUB_CATEGORY_NOR_FOUND.getMessage()));
+                () -> new BusinessException(ErrorCode.SUB_CATEGORY_NOT_FOUND.getMessage()));
         Category category1 = categoryRepository.findById(subCategoryBean.getParentId()).orElseThrow(
                 () -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND.getMessage()));
 
