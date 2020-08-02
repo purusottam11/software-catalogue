@@ -99,6 +99,7 @@ public class ProductServiceImpl implements ProductService {
         if (!productRepository.existsById(productId)) {
             throw new BusinessException(ErrorCode.PRODUCT_NOT_FOUND.getMessage());
         }
+        //FIXME add validation for version,edition,systemRequrement,installationDetail and license -> make sure that all the thing to be deleted also
         productRepository.deleteById(productId);
         productEsRepository.deleteById(productId);
         return "success";

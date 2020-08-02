@@ -117,7 +117,6 @@ public class CategoryServiceImpl implements CategoryService {
                     throw new BusinessException("You can not delete the category.....");
                 }
         );
-
         categoryRepository.deleteById(categoryId);
         categoryEsRepository.deleteById(categoryId);
         return "success";
@@ -127,7 +126,6 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryBean> getAllSuCategoriesByParentId(Long parentId) {
         List<Category> categories = categoryRepository.getCategoriesByParentId(parentId).orElseThrow(
                 () -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND.getMessage()));
-
         List<CategoryBean> list = XoriskUtils.copySafe(categories, CategoryBean.class);
         return list;
     }

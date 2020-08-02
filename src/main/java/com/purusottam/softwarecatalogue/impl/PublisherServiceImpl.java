@@ -73,4 +73,15 @@ public class PublisherServiceImpl implements PublisherService {
         XoriskUtils.copySafe(publisherRepository.getOne(publisherId), publisherBean);
         return publisherBean;
     }
+
+    @Override
+    @Transactional
+    public String deletePublisher(Long publisherId) {
+        Publisher publisher = publisherRepository.findById(publisherId).orElseThrow(
+                () -> new BusinessException(ErrorCode.PUBLISHER_NOT_FOUND.getMessage()));
+        //FIXME me must to delete all the Product which Publisher is deleted
+        publisherRepository.deleteById(publisherId);
+        publisherEsRepository.deleteById(publisherId);
+        return "success";
+    }
 }
