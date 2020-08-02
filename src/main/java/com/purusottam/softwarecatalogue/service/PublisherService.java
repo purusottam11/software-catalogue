@@ -8,10 +8,12 @@ public interface PublisherService {
 
     PublisherBean addPublisher(PublisherBean publisherBean);
 
-    PublisherBean updatePublisher(PublisherBean publisherBean,Long publisherId);
+    PublisherBean updatePublisher(PublisherBean publisherBean, Long publisherId);
 
     List<PublisherBean> getAllPublisher();
 
     PublisherBean getPublisher(long publisherId);
+
+    String deletePublisher(Long publisherId);
 
 }
