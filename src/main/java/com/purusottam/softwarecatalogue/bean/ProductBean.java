@@ -40,10 +40,10 @@ public class ProductBean {
 
     private Long linkToBundledProduct;
 
-    private PublisherBean publisherBean;
-
-    private CategoryBean categoryBean;
-
-    private CategoryBean subCategoryBean;
+//    private PublisherBean publisherBean;
+//
+//    private CategoryBean categoryBean;
+//
+//    private CategoryBean subCategoryBean;
 
 }
