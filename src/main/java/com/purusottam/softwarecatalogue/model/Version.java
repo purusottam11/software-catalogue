@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
-@Table(name = "PRODUCT_VERSION")
+@Table(name = "VERSION")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

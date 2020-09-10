@@ -21,6 +21,9 @@ public class ProductEdition extends AuditableIdEntity {
     @Column(name = "PRODUCT_ID")
     private Long productId;
 
+    @Column(name = "VERSION_ID")
+    private Long versionId;
+
     @Column(name = "EDITION")
     private String edition;
 

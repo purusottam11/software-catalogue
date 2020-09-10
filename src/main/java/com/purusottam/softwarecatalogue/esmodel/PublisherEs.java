@@ -36,7 +36,6 @@ public class PublisherEs {
 
     private String foundedDate;
 
-
     private String description;
 
     private String industry;

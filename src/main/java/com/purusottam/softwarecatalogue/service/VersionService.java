@@ -12,12 +12,10 @@ public interface VersionService {
 
     VersionBean updateVersion(Long versionId, VersionBean versionBean);
 
-    List<VersionBean> getAllVersion();
-
     VersionBean getVersion(Long versionId);
 
     String deleteVersion(Long id);
 
-    List<Product> getVersionsByProductId(Long productId);
+    List<VersionBean> getVersionsByProductId(Long productId);
 
 }

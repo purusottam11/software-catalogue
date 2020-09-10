@@ -1,7 +1,7 @@
 package com.purusottam.softwarecatalogue.bean;
 
 
-public class ProductEditionBean extends DataBean {
+public class ProductEditionBean {
 
     private Long productId;
 

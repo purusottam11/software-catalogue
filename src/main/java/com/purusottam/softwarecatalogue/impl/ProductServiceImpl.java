@@ -12,12 +12,11 @@ import com.purusottam.softwarecatalogue.repository.CategoryRepository;
 import com.purusottam.softwarecatalogue.repository.ProductRepository;
 import com.purusottam.softwarecatalogue.repository.PublisherRepository;
 import com.purusottam.softwarecatalogue.service.ProductService;
-import com.purusottam.softwarecatalogue.utils.XoriskUtils;
+import com.purusottam.softwarecatalogue.utils.CopyUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Service
@@ -31,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductBean> getAllProduct() {
-        List<ProductBean> list = XoriskUtils.copySafe(productRepository.findAll(), ProductBean.class);
+        List<ProductBean> list = CopyUtils.copySafe(productRepository.findAll(), ProductBean.class);
         return list;
     }
 
@@ -50,12 +49,12 @@ public class ProductServiceImpl implements ProductService {
         Category subcategory = categoryRepository.findById(productBean.getSubCategoryId()).orElseThrow(
                 () -> new BusinessException(ErrorCode.SUB_CATEGORY_NOT_FOUND.getMessage()));
         Product product = new Product();
-        XoriskUtils.copySafe(productBean, product);
+        CopyUtils.copySafe(productBean, product);
         product = productRepository.save(product);
         ProductEs productEs = new ProductEs();
-        XoriskUtils.copySafe(product, productEs);
+        CopyUtils.copySafe(product, productEs);
         productEs = productEsRepository.save(productEs);
-        XoriskUtils.copySafe(productEs, productBean);
+        CopyUtils.copySafe(productEs, productBean);
         return productBean;
     }
 
@@ -78,11 +77,11 @@ public class ProductServiceImpl implements ProductService {
 
         Product newProduct = new Product();
         newProduct.setId(productId);
-        XoriskUtils.copySafe(productBean, newProduct);
+        CopyUtils.copySafe(productBean, newProduct);
         newProduct = productRepository.save(newProduct);
         ProductEs productEs = new ProductEs();
-        XoriskUtils.copySafe(newProduct, productEs);
-        XoriskUtils.copySafe(productEsRepository.save(productEs), productBean);
+        CopyUtils.copySafe(newProduct, productEs);
+        CopyUtils.copySafe(productEsRepository.save(productEs), productBean);
         return productBean;
     }
 
@@ -90,7 +89,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductBean getProduct(Long productId) {
         Product product = productRepository.findById(productId).orElseThrow(
                 () -> new BusinessException(ErrorCode.PRODUCT_NOT_FOUND.getMessage()));
-        return XoriskUtils.copySafe(product, new ProductBean());
+        return CopyUtils.copySafe(product, new ProductBean());
     }
 
     @Override
@@ -109,7 +108,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductBean> getProductsByPublisherId(Long publisherId) {
         List<Product> list = productRepository.findProductsByPublisherId(publisherId).orElseThrow(
                 () -> new BusinessException(ErrorCode.PRODUCT_NOT_FOUND.getMessage()));
-        List<ProductBean> beans = XoriskUtils.copySafe(list, ProductBean.class);
+        List<ProductBean> beans = CopyUtils.copySafe(list, ProductBean.class);
         return beans;
     }
 
@@ -117,7 +116,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductBean> getProductsByCategoryId(Long categoryId) {
         List<Product> list = productRepository.findProductsByCategoryId(categoryId).orElseThrow(
                 () -> new BusinessException(ErrorCode.PRODUCT_NOT_FOUND));
-        List<ProductBean> beans = XoriskUtils.copySafe(list, ProductBean.class);
+        List<ProductBean> beans = CopyUtils.copySafe(list, ProductBean.class);
         return beans;
     }
 

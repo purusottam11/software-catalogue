@@ -8,7 +8,7 @@ import com.purusottam.softwarecatalogue.exception.ErrorCode;
 import com.purusottam.softwarecatalogue.model.Publisher;
 import com.purusottam.softwarecatalogue.repository.PublisherRepository;
 import com.purusottam.softwarecatalogue.service.PublisherService;
-import com.purusottam.softwarecatalogue.utils.XoriskUtils;
+import com.purusottam.softwarecatalogue.utils.CopyUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,10 +32,10 @@ public class PublisherServiceImpl implements PublisherService {
         );
         Publisher publisher = new Publisher();
         PublisherEs publisherEs = new PublisherEs();
-        XoriskUtils.copySafe(publisherBean, publisher);
-        XoriskUtils.copySafe(publisherRepository.save(publisher), publisherEs);
+        CopyUtils.copySafe(publisherBean, publisher);
+        CopyUtils.copySafe(publisherRepository.save(publisher), publisherEs);
         publisherEsRepository.save(publisherEs);
-        XoriskUtils.copySafe(publisherEs, publisherBean);
+        CopyUtils.copySafe(publisherEs, publisherBean);
         return publisherBean;
     }
 
@@ -47,21 +47,21 @@ public class PublisherServiceImpl implements PublisherService {
         PublisherEs publisherEs = publisherEsRepository.findById(publisherId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PUBLISHER_NOT_FOUND.getMessage()));
 
-        XoriskUtils.copySafe(publisherBean, publisher);
+        CopyUtils.copySafe(publisherBean, publisher);
         publisher.setId(publisherId);
         publisher = publisherRepository.save(publisher);
 
-        XoriskUtils.copySafe(publisherBean, publisherEs);
+        CopyUtils.copySafe(publisherBean, publisherEs);
         publisherEs.setId(publisherId);
         publisherEs = publisherEsRepository.save(publisherEs);
-        XoriskUtils.copySafe(publisher, publisherBean);
+        CopyUtils.copySafe(publisher, publisherBean);
         return publisherBean;
     }
 
     @Override
     public List<PublisherBean> getAllPublisher() {
         List<Publisher> publishers = publisherRepository.findAll();
-        List<PublisherBean> publisherBeans = XoriskUtils.copySafe(publishers, PublisherBean.class);
+        List<PublisherBean> publisherBeans = CopyUtils.copySafe(publishers, PublisherBean.class);
         return publisherBeans;
     }
 
@@ -70,7 +70,7 @@ public class PublisherServiceImpl implements PublisherService {
         Publisher publisher = publisherRepository.findById(publisherId).orElseThrow(
                 () -> new BusinessException(ErrorCode.PUBLISHER_NOT_FOUND));
         PublisherBean publisherBean = new PublisherBean();
-        XoriskUtils.copySafe(publisherRepository.getOne(publisherId), publisherBean);
+        CopyUtils.copySafe(publisherRepository.getOne(publisherId), publisherBean);
         return publisherBean;
     }
 

@@ -8,7 +8,7 @@ import com.purusottam.softwarecatalogue.exception.ErrorCode;
 import com.purusottam.softwarecatalogue.model.Category;
 import com.purusottam.softwarecatalogue.repository.CategoryRepository;
 import com.purusottam.softwarecatalogue.service.CategoryService;
-import com.purusottam.softwarecatalogue.utils.XoriskUtils;
+import com.purusottam.softwarecatalogue.utils.CopyUtils;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +25,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryBean> getAllCategories() {
         List<Category> list = categoryRepository.findAll();
-        List<CategoryBean> beans = XoriskUtils.copySafe(list, CategoryBean.class);
+        List<CategoryBean> beans = CopyUtils.copySafe(list, CategoryBean.class);
         return beans;
     }
 
@@ -37,12 +37,12 @@ public class CategoryServiceImpl implements CategoryService {
                     throw new BusinessException(ErrorCode.CATEGORY_IS_EXIST.getMessage());
                 });
         Category category = new Category();
-        XoriskUtils.copySafe(categoryBean, category);
+        CopyUtils.copySafe(categoryBean, category);
         category = categoryRepository.save(category);
         CategoryEs categoryEs = new CategoryEs();
-        XoriskUtils.copySafe(category, categoryEs);
+        CopyUtils.copySafe(category, categoryEs);
         categoryEsRepository.save(categoryEs);
-        XoriskUtils.copySafe(category, categoryBean);
+        CopyUtils.copySafe(category, categoryBean);
         return categoryBean;
     }
 
@@ -57,12 +57,12 @@ public class CategoryServiceImpl implements CategoryService {
                 });
 
         Category subCategory = new Category();
-        XoriskUtils.copySafe(subCategoryBean, subCategory);
+        CopyUtils.copySafe(subCategoryBean, subCategory);
         subCategory = categoryRepository.save(subCategory);
         CategoryEs subCategoryEs = new CategoryEs();
-        XoriskUtils.copySafe(subCategory, subCategoryEs);
+        CopyUtils.copySafe(subCategory, subCategoryEs);
         subCategoryEs = categoryEsRepository.save(subCategoryEs);
-        XoriskUtils.copySafe(subCategoryEs, subCategoryBean);
+        CopyUtils.copySafe(subCategoryEs, subCategoryBean);
         return subCategoryBean;
     }
 
@@ -72,12 +72,12 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findById(categoryId).orElseThrow(
                 () -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND.getMessage()));
 
-        XoriskUtils.copySafe(categoryBean, category);
+        CopyUtils.copySafe(categoryBean, category);
         category = categoryRepository.save(category);
         CategoryEs categoryEs = new CategoryEs();
-        XoriskUtils.copySafe(category, categoryEs);
+        CopyUtils.copySafe(category, categoryEs);
         categoryEs = categoryEsRepository.save(categoryEs);
-        XoriskUtils.copySafe(categoryEs, categoryBean);
+        CopyUtils.copySafe(categoryEs, categoryBean);
         return categoryBean;
     }
 
@@ -89,12 +89,12 @@ public class CategoryServiceImpl implements CategoryService {
         Category category1 = categoryRepository.findById(subCategoryBean.getParentId()).orElseThrow(
                 () -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND.getMessage()));
 
-        XoriskUtils.copySafe(subCategoryBean, subCategory);
+        CopyUtils.copySafe(subCategoryBean, subCategory);
         subCategory = categoryRepository.save(subCategory);
         CategoryEs subCategoryEs = new CategoryEs();
-        XoriskUtils.copySafe(subCategory, subCategoryEs);
+        CopyUtils.copySafe(subCategory, subCategoryEs);
         subCategoryEs = categoryEsRepository.save(subCategoryEs);
-        XoriskUtils.copySafe(subCategoryEs, subCategoryBean);
+        CopyUtils.copySafe(subCategoryEs, subCategoryBean);
         return subCategoryBean;
     }
 
@@ -103,7 +103,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = categoryRepository.findById(categoryId).orElseThrow(
                 () -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND.getMessage()));
         CategoryBean categoryBean = new CategoryBean();
-        XoriskUtils.copySafe(category, categoryBean);
+        CopyUtils.copySafe(category, categoryBean);
         return categoryBean;
     }
 
@@ -126,7 +126,7 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryBean> getAllSuCategoriesByParentId(Long parentId) {
         List<Category> categories = categoryRepository.getCategoriesByParentId(parentId).orElseThrow(
                 () -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND.getMessage()));
-        List<CategoryBean> list = XoriskUtils.copySafe(categories, CategoryBean.class);
+        List<CategoryBean> list = CopyUtils.copySafe(categories, CategoryBean.class);
         return list;
     }
 }

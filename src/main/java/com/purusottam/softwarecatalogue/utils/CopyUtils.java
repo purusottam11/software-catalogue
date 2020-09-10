@@ -11,7 +11,7 @@ import java.text.ParseException;
 import java.util.*;
 
 @Component
-public class XoriskUtils {
+public class CopyUtils {
     public static Date parseDate(String date, FastDateFormat format) {
         return parseDate(date, format.getPattern());
     }

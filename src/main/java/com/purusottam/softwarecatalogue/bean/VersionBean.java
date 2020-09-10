@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class VersionBean extends DataBean {
+public class VersionBean  {
 
     private Long productId;
 
