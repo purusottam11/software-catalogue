@@ -48,6 +48,7 @@ public class VersionServiceImpl implements VersionService {
     }
 
     @Override
+    @Transactional
     public VersionBean updateVersion(Long versionId, VersionBean versionBean) {
         Version version = versionRepository.findById(versionId).orElseThrow(
                 () -> new BusinessException(ErrorCode.VERSION_NOT_FOUND));

@@ -9,9 +9,12 @@ public interface ProductEditionService {
 
     ProductEditionBean addProductEdition(ProductEditionBean productEditionBean);
 
-    ProductEditionBean updateProductEdition(ProductEditionBean productEditionBean);
+    ProductEditionBean updateProductEdition(ProductEditionBean productEditionBean, Long id);
 
     List<ProductEditionBean> getAllProductEdition();
 
     ProductEditionBean getEdition(Long editionId);
+
+    List<ProductEditionBean> getEditionsByProductIdAndVersionId(Long productId, Long versionId);
+
 }
