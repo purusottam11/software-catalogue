@@ -14,7 +14,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public abstract class IdEntity implements Serializable {
+public abstract class   IdEntity implements Serializable {
 
     @Id
     @Column(name = "ID")

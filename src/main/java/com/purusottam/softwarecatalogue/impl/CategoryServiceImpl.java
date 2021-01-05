@@ -32,6 +32,8 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public CategoryBean addCategory(CategoryBean categoryBean) {
+        categoryRepository.findById(categoryBean.getParentId()).orElseThrow(
+                () -> new BusinessException(ErrorCode.CATEGORY_NOT_FOUND));
         categoryRepository.findByName(categoryBean.getName()).ifPresent(
                 i -> {
                     throw new BusinessException(ErrorCode.CATEGORY_IS_EXIST.getMessage());

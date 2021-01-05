@@ -41,14 +41,13 @@ public class PublisherServiceImpl implements PublisherService {
 
     @Transactional
     @Override
-    public PublisherBean updatePublisher(PublisherBean publisherBean, Long publisherId) {
+        public PublisherBean updatePublisher(PublisherBean publisherBean, Long publisherId) {
         Publisher publisher = publisherRepository.findById(publisherId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PUBLISHER_NOT_FOUND.getMessage()));
         PublisherEs publisherEs = publisherEsRepository.findById(publisherId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.PUBLISHER_NOT_FOUND.getMessage()));
 
         CopyUtils.copySafe(publisherBean, publisher);
-        publisher.setId(publisherId);
         publisher = publisherRepository.save(publisher);
 
         CopyUtils.copySafe(publisherBean, publisherEs);

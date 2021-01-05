@@ -13,8 +13,8 @@ public class ProductEditionBean {
 
     private Long productId;
 
-    private Long versionId;
-
     private String edition;
+
+    private String description;
 
 }

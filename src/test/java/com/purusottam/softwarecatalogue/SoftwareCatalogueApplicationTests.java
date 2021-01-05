@@ -1,13 +1,17 @@
 package com.purusottam.softwarecatalogue;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
+
 class SoftwareCatalogueApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+        Assert.assertEquals("checking for the result ", "apple", "apple");
+        System.out.println("Success test cases....");
+
+
+    }
 
 }

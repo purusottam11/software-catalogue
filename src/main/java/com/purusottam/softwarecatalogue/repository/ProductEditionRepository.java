@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ProductEditionRepository extends JpaRepository<ProductEdition, Long> {
 
-    Optional<ProductEdition> findByEditionAndProductIdAndVersionId(String edition, Long productId, Long versionId);
+    Optional<ProductEdition> findByEditionAndProductId(String edition, Long productId);
 
     Optional<List<ProductEdition>> findByProductIdAndVersionId(Long productId, Long versionId);
 

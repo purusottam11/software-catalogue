@@ -9,7 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class LicenseBean extends DataBean {
+public class LicenseBean  {
 
     private Long productId;
 
@@ -19,9 +19,9 @@ public class LicenseBean extends DataBean {
 
     private String licenseType;
 
-    private boolean trail;
+    private Boolean trail;
 
-    private int period;
+    private Integer period;
 
     private Boolean production;
 

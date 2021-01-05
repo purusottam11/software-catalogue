@@ -39,13 +39,12 @@ public class ProductEditionServiceImpl implements ProductEditionService {
     public ProductEditionBean addProductEdition(ProductEditionBean productEditionBean) {
         Product product = productRepository.findById(productEditionBean.getProductId()).orElseThrow(
                 () -> new BusinessException(ErrorCode.PRODUCT_NOT_FOUND));
-        Version version = versionRepository.findById(productEditionBean.getVersionId()).orElseThrow(
-                () -> new BusinessException(ErrorCode.VERSION_NOT_FOUND));
-        productEditionRepository.findByEditionAndProductIdAndVersionId(productEditionBean.getEdition(), productEditionBean.getProductId(), productEditionBean.getVersionId()).ifPresent(
-                i -> {
-                    throw new BusinessException(ErrorCode.PRODUCT_EDITION_IS_EXIST);
-                }
-        );
+        productEditionRepository.findByEditionAndProductId(productEditionBean.getEdition(), productEditionBean.getProductId())
+                .ifPresent(
+                        i -> {
+                            throw new BusinessException(ErrorCode.PRODUCT_EDITION_IS_EXIST);
+                        }
+                );
         ProductEdition productEdition = new ProductEdition();
         CopyUtils.copySafe(productEditionBean, productEdition);
         productEdition = productEditionRepository.save(productEdition);
@@ -63,10 +62,8 @@ public class ProductEditionServiceImpl implements ProductEditionService {
                 () -> new BusinessException(ErrorCode.PRODUCT_EDITION_NOT_FOUND));
         Product product = productRepository.findById(productEditionBean.getProductId()).orElseThrow(
                 () -> new BusinessException(ErrorCode.PRODUCT_NOT_FOUND));
-        Version version = versionRepository.findById(productEditionBean.getVersionId()).orElseThrow(
-                () -> new BusinessException(ErrorCode.VERSION_NOT_FOUND));
 
-        productEditionRepository.findByEditionAndProductIdAndVersionId(productEditionBean.getEdition(), productEditionBean.getProductId(), productEditionBean.getVersionId())
+        productEditionRepository.findByEditionAndProductId(productEditionBean.getEdition(), productEditionBean.getProductId())
                 .ifPresent(
                         i -> {
                             throw new BusinessException(ErrorCode.PRODUCT_EDITION_IS_EXIST);
